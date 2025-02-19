@@ -37,9 +37,12 @@ pico_sdk_init()
 
 add_executable(pio_pwm pwm.c inc/ssd1306.c)
 
-target_sources(pio_pwm PRIVATE pwm.c)
+target_link_libraries(pio_pwm
+        pico_stdlib hardware_pio hardware_adc pico_bootrom)
 
-target_link_libraries(pio_pwm PRIVATE pico_stdlib hardware_pio hardware_pwm hardware_i2c hardware_adc)
+target_sources(pio_pwm PRIVATE  ${CMAKE_CURRENT_LIST_DIR})
+
+target_link_libraries(pio_pwm  hardware_i2c hardware_pwm)
 pico_add_extra_outputs(pio_pwm)
 
 # add url via pico_set_program_url
